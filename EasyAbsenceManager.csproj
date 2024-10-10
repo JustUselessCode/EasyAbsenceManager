@@ -236,7 +236,13 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="EasyAbsenceManagerRibbon.cs" />
+    <Compile Include="Entities\AttachmentInfo.cs" />
+    <Compile Include="Forms\EndForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EndForm.Designer.cs">
+      <DependentUpon>EndForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FoundNewSickNotesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,6 +255,12 @@
     <Compile Include="Forms\ManuallyProcessedEmailsForm.Designer.cs">
       <DependentUpon>ManuallyProcessedEmailsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\NoAttachmentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NoAttachmentsForm.Designer.cs">
+      <DependentUpon>NoAttachmentsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\StartupInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,38 +268,44 @@
       <DependentUpon>StartupInfoForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Handler\AttachmentHandler.cs" />
-    <Compile Include="Handler\Attachtment_Handler.cs" />
     <Compile Include="Handler\MailboxHandler.cs" />
     <Compile Include="Helper\CalendarHelper.cs" />
+    <Compile Include="Helper\EmailHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Forms\EndForm.resx">
+      <DependentUpon>EndForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FoundNewSickNotesForm.resx">
       <DependentUpon>FoundNewSickNotesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ManuallyProcessedEmailsForm.resx">
       <DependentUpon>ManuallyProcessedEmailsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NoAttachmentsForm.resx">
+      <DependentUpon>NoAttachmentsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\StartupInfoForm.resx">
       <DependentUpon>StartupInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="app.config" />
-    <None Include="CreateEventLogScript.ps1" />
     <None Include="EasyAbsenceManager_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -302,9 +320,6 @@
       <DependentUpon>ThisAddIn.Designer.xml</DependentUpon>
     </Compile>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EasyAbsenceManagerRibbon.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

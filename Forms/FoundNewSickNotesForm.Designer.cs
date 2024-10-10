@@ -33,8 +33,8 @@
             this.ExecuteAddonButton = new System.Windows.Forms.Button();
             this.ManagerInfoLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.SickNoteListBox = new System.Windows.Forms.ListBox();
             this.GetHelpButton = new System.Windows.Forms.Button();
+            this.SickNoteListBox = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,6 +84,16 @@
             this.panel1.TabIndex = 4;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // GetHelpButton
+            // 
+            this.GetHelpButton.Location = new System.Drawing.Point(699, 12);
+            this.GetHelpButton.Name = "GetHelpButton";
+            this.GetHelpButton.Size = new System.Drawing.Size(75, 31);
+            this.GetHelpButton.TabIndex = 5;
+            this.GetHelpButton.Text = "Hilfe";
+            this.GetHelpButton.UseVisualStyleBackColor = true;
+            this.GetHelpButton.Click += new System.EventHandler(this.GetHelpButton_Click);
+            // 
             // SickNoteListBox
             // 
             this.SickNoteListBox.FormattingEnabled = true;
@@ -94,16 +104,6 @@
             this.SickNoteListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.SickNoteListBox.Size = new System.Drawing.Size(716, 324);
             this.SickNoteListBox.TabIndex = 4;
-            // 
-            // GetHelpButton
-            // 
-            this.GetHelpButton.Location = new System.Drawing.Point(699, 12);
-            this.GetHelpButton.Name = "GetHelpButton";
-            this.GetHelpButton.Size = new System.Drawing.Size(75, 31);
-            this.GetHelpButton.TabIndex = 5;
-            this.GetHelpButton.Text = "Hilfe";
-            this.GetHelpButton.UseVisualStyleBackColor = true;
-            this.GetHelpButton.Click += new System.EventHandler(this.GetHelpButton_Click);
             // 
             // FoundNewSickNotesForm
             // 
@@ -116,6 +116,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FoundNewSickNotesForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " EasyAbsenceManager";
             this.Load += new System.EventHandler(this.FoundNewSickNotesForm_Load);
             this.panel1.ResumeLayout(false);

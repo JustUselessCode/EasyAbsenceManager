@@ -43,13 +43,14 @@
             this.InfoLabel.Size = new System.Drawing.Size(40, 20);
             this.InfoLabel.TabIndex = 0;
             this.InfoLabel.Text = "Test";
+            this.InfoLabel.Click += new System.EventHandler(this.InfoLabel_Click);
             // 
             // StartupContinueButton
             // 
             this.StartupContinueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.StartupContinueButton.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.StartupContinueButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.StartupContinueButton.Location = new System.Drawing.Point(508, 256);
+            this.StartupContinueButton.Location = new System.Drawing.Point(324, 151);
             this.StartupContinueButton.Name = "StartupContinueButton";
             this.StartupContinueButton.Size = new System.Drawing.Size(98, 36);
             this.StartupContinueButton.TabIndex = 1;
@@ -67,7 +68,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(618, 304);
+            this.ClientSize = new System.Drawing.Size(434, 199);
             this.Controls.Add(this.StartupContinueButton);
             this.Controls.Add(this.InfoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -75,7 +76,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartupInfoForm";
-            this.Text = " StartupInfoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = " Information";
             this.Load += new System.EventHandler(this.StartupInfoForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
             this.ResumeLayout(false);

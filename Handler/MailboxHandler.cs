@@ -1,17 +1,14 @@
-using System;
-using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Outlook;
-using Outlook = Microsoft.Office.Interop.Outlook;
 using Folder = Microsoft.Office.Interop.Outlook.Folder;
 
 namespace EasyAbsenceManager.Handler
 {
     internal static class MailboxHandler
     {
-        public static readonly string _CompletedFolderName = "Bearbeitete Krankmeldungen";
+        public static readonly string _CompletedFolderName = "EasyAbsenceManager - Krankmeldungen";
 
         private static readonly Regex _SickNotePattern = new Regex(@"^Krankmeldung_[\w]+_[\w]+[a-zA-Z]{2}[0-9]{3}_KW\d{2}");
 
@@ -77,16 +74,15 @@ namespace EasyAbsenceManager.Handler
             return mailItems;
         }
 
-        public static void MoveEmails(Application _App, List<MailItem> _Email)
+        public static void MoveEmails(Application _App, List<MailItem> _Emails)
         {
-            //var _Session = _App.ActiveExplorer().Session;
-            var _Session = _App.Session;
+            var _Session = _App.ActiveExplorer().Session;
 
             try
             {
-                foreach (var mail in _Email) 
+                foreach (var mail in _Emails) 
                 {
-                    mail.Move((Folder)_Session.Folders[_CompletedFolderName]);
+                    mail.Move((Folder)_Session.GetDefaultFolder(OlDefaultFolders.olFolderInbox).Folders[_CompletedFolderName]);
                 }
             }
             catch (System.Exception ex)

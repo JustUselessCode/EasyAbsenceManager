@@ -28,5 +28,16 @@ namespace EasyAbsenceManager.Forms
             ExecuteAddonButton.Text = "Verschieben";
             ManagerInfoLabel.Text = "Haben sie diese Krankmeldungen bereits händisch abgearbeitet?\n Dann werden sie zur Verhinderung von Dopplungen verschoben.";
         }
+
+        private void GetHelpButton_Click(object sender, EventArgs e)
+        {
+            var helpDialog = new StartupInfoForm();
+            var Result = helpDialog.ShowDialog();
+        }
+
+        private void CancelAddInExecutionButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

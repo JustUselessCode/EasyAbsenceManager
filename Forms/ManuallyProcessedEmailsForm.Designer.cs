@@ -44,6 +44,7 @@
             this.GetHelpButton.TabIndex = 10;
             this.GetHelpButton.Text = "Hilfe";
             this.GetHelpButton.UseVisualStyleBackColor = true;
+            this.GetHelpButton.Click += new System.EventHandler(this.GetHelpButton_Click);
             // 
             // SickNoteListBox
             // 
@@ -70,23 +71,26 @@
             // 
             // ExecuteAddonButton
             // 
+            this.ExecuteAddonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ExecuteAddonButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ExecuteAddonButton.Location = new System.Drawing.Point(693, 397);
+            this.ExecuteAddonButton.Location = new System.Drawing.Point(673, 397);
             this.ExecuteAddonButton.Name = "ExecuteAddonButton";
-            this.ExecuteAddonButton.Size = new System.Drawing.Size(95, 38);
+            this.ExecuteAddonButton.Size = new System.Drawing.Size(115, 38);
             this.ExecuteAddonButton.TabIndex = 7;
-            this.ExecuteAddonButton.Text = "Ausführen";
+            this.ExecuteAddonButton.Text = "Verschieben";
             this.ExecuteAddonButton.UseVisualStyleBackColor = true;
             // 
             // CancelAddInExecutionButton
             // 
+            this.CancelAddInExecutionButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelAddInExecutionButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelAddInExecutionButton.Location = new System.Drawing.Point(587, 397);
+            this.CancelAddInExecutionButton.Location = new System.Drawing.Point(567, 397);
             this.CancelAddInExecutionButton.Name = "CancelAddInExecutionButton";
             this.CancelAddInExecutionButton.Size = new System.Drawing.Size(100, 38);
             this.CancelAddInExecutionButton.TabIndex = 6;
             this.CancelAddInExecutionButton.Text = "Abbrechen";
             this.CancelAddInExecutionButton.UseVisualStyleBackColor = true;
+            this.CancelAddInExecutionButton.Click += new System.EventHandler(this.CancelAddInExecutionButton_Click);
             // 
             // ManuallyProcessedEmailsForm
             // 
@@ -98,8 +102,10 @@
             this.Controls.Add(this.ManagerInfoLabel);
             this.Controls.Add(this.ExecuteAddonButton);
             this.Controls.Add(this.CancelAddInExecutionButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManuallyProcessedEmailsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = " Erster Start";
             this.Load += new System.EventHandler(this.ManuallyProcessedEmailsForm_Load);
             this.ResumeLayout(false);

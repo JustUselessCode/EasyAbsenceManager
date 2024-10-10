@@ -1,12 +1,8 @@
-﻿using System.Linq;
-using System.Diagnostics;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using EasyAbsenceManager.Forms;
-using EasyAbsenceManager.Helper;
 using EasyAbsenceManager.Handler;
 using Microsoft.Extensions.Logging;
-using Ribbon = Microsoft.Office.Tools.Ribbon;
-using Microsoft.Office.Core;
 
 namespace EasyAbsenceManager
 {
@@ -15,23 +11,12 @@ namespace EasyAbsenceManager
         private readonly string _ApplicationName = "EasyAbsenceManager";
         private readonly string _ApplicationLongName = "EasyAbsenceManager-OutlookAddIn";
         private bool _IsFirstStartup;
+        private bool ManuallyProcessedEmails { get; set; } = false;
 
         public static readonly ILogger _Log;
 
-        protected override IRibbonExtensibility CreateRibbonExtensibilityObject()
-        {
-            return new EasyAbsenceManagerRibbon();
-        }
-
         public void ThisAddIn_Startup(object sender, System.EventArgs e)
         {   
-
-            //_Log.Source = _ApplicationName;
-            //if (!EventLog.SourceExists(_ApplicationName))
-            //{
-            //    EventLog.CreateEventSource(_ApplicationName, _ApplicationLongName);   
-            //}
-
             var resultFolderCreation = MailboxHandler.CreateCompletionFolder(Application);
             _IsFirstStartup = !resultFolderCreation;
 
@@ -43,47 +28,57 @@ namespace EasyAbsenceManager
                 var FirstStartupForm = new StartupInfoForm();
                 var DialogResult = FirstStartupForm.ShowDialog();
 
-                var ManualForm = new ManuallyProcessedEmailsForm();
-                ManualForm.SickNoteListBox.DataSource = SickNotesListDataSource;
-                var ManualFormResult = ManualForm.ShowDialog();
-
-                if (ManualFormResult is DialogResult.OK)
+                if (SickNotes.Count > 0)
                 {
-                    MailboxHandler.MoveEmails(Application, SickNotes);
+                    var ManualForm = new ManuallyProcessedEmailsForm();
+                    ManualForm.SickNoteListBox.DataSource = SickNotesListDataSource;
+                    ManualForm.ManagerInfoLabel.Font = new Font("Arial", 9);
+                    ManualForm.SickNoteListBox.Font = new Font("Arial", 11);
+                    var ManualFormResult = ManualForm.ShowDialog();
+
+                    if (ManualFormResult == DialogResult.OK)
+                    {
+                        MailboxHandler.MoveEmails(Application, SickNotes);
+                        ManuallyProcessedEmails = true;
+                    }
                 }
             }
-
-
 
             if (SickNotes != null && SickNotes.Count > 0)
             {
                 try
                 {
-                    //TODO: Implement functionality for first time startup (If the Mails are still in the inbox but have already been processed manually)
-                    var form = new FoundNewSickNotesForm();
-                    form.Name = "Easy-Absence-Manager";
-                    form.SickNoteListBox.DataSource = SickNotesListDataSource;
-                    form.ManagerInfoLabel.Text = $"Der EasyAbsenceManager hat {SickNotes.Count} Krankmeldungen gefunden. \nWollen sie den Prozess starten?";
-                    form.ManagerInfoLabel.Font = new System.Drawing.Font("Arial", 9);
-                    form.SickNoteListBox.Font = new System.Drawing.Font("Arial", 11);
-
-                    DialogResult result = form.ShowDialog();
-
-                    switch (result)
+                    if (!ManuallyProcessedEmails)
                     {
-                        case DialogResult.OK:
-                            AttachmentHandler.TryDownloadAndRenameAttachment(Application, SickNotes);
-                            return;
+                        var form = new FoundNewSickNotesForm();
+                        form.Name = "Easy-Absence-Manager";
+                        form.SickNoteListBox.DataSource = SickNotesListDataSource;
+                        form.ManagerInfoLabel.Text = $"Der EasyAbsenceManager hat {SickNotes.Count} Krankmeldungen gefunden. \nWollen sie den Prozess starten?";
+                        form.ManagerInfoLabel.Font = new Font("Arial", 9);
+                        form.SickNoteListBox.Font = new Font("Arial", 11);
 
-                        case DialogResult.Cancel:
-                            Application.Session.Logoff();
-                            return;
+                        DialogResult result = form.ShowDialog();
 
-                        default:
-                            Application.Session.Logoff();
-                            return;
+                        switch (result)
+                        {
+                            case DialogResult.OK:
+                                AttachmentHandler.TryDownloadAndRenameAttachment(Application, SickNotes);
+                                var EndForm = new EndForm();
+                                EndForm.EndFormLabel.Text = "Die Anhänge wurden erfolgreich verschoben.\nSie können dieses Fenster nun schließen.";
+                                EndForm.ShowDialog();
+                                return;
 
+                            case DialogResult.Cancel:
+                                Application.Session.Logoff();
+                                return;
+
+                            default:
+                                Application.Session.Logoff();
+                                return;
+
+                        }
                     }
+                  
                 }
                 catch (System.Exception ex)
                 {
